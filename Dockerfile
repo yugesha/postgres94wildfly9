@@ -8,8 +8,11 @@ RUN sudo apt-get update -y && sudo apt-get upgrade --fix-missing -y && \
 
 # JDK INSTALLATION STARTS
 
-RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections && \
-	sudo apt-get install oracle-java8-set-default oracle-java8-installer -y
+RUN sudo rm /var/cache/oracle-jdk8-installer/jdk-* && \
+		echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections && \
+		sudo apt-get install oracle-java8-set-default oracle-java8-installer -y && \
+		sudo apt-get install -f && \
+		sudo dpkg --configure -a
 
 # JDK INSTALLATION ENDS
 	
